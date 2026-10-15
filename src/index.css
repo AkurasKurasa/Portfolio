@@ -177,94 +177,93 @@ h1, h2 { font-family: var(--font-display); font-weight: 700; margin: 0; letter-s
 /* Projects */
 .projects { padding: 96px 0; border-bottom: 1px solid var(--line); position: relative; }
 
-.project-list { margin-top: 40px; }
-
-/* Each project is one wide row: a quiet text column beside a live snapshot.
-   The products supply the colour, so the surround stays neutral. */
-.project {
+.project-grid {
+  margin-top: 40px;
+  padding: 0 48px;
   display: grid;
-  grid-template-columns: minmax(240px, 22%) 1fr;
-  gap: 48px;
-  align-items: start;
-  padding: 44px 48px;
-  border-top: 1px solid var(--line);
-  text-decoration: none;
-  color: inherit;
-}
-.project-list .project:last-child { border-bottom: 1px solid var(--line); }
-
-.project-name {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: clamp(26px, 2.6vw, 38px);
-  line-height: 1.05;
-  margin: 0;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 28px;
 }
 
-.project-blurb {
-  margin: 14px 0 0;
-  max-width: 34ch;
-  color: var(--muted);
-  font-size: 15px;
-  line-height: 1.6;
-}
-
-.project-stack {
-  margin: 16px 0 0;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  line-height: 1.7;
-  color: var(--faint);
-}
-
-/* Browser chrome reduced to the one part that carries information. */
-.project-plate {
-  margin: 0;
+.project-card {
+  display: flex;
+  flex-direction: column;
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: 12px;
   overflow: hidden;
   background: var(--surface);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.18s ease;
 }
 
-.project-url {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--muted);
-  padding: 10px 14px;
-  border-bottom: 1px solid var(--line);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  transition: color 0.18s ease;
-}
-
-.project-plate img {
+/* The snapshot is the card's subject; the body below stays quiet. */
+.project-shot {
   display: block;
   width: 100%;
   height: auto;
   aspect-ratio: 16 / 9;
   object-fit: cover;
   object-position: top center;
+  border-bottom: 1px solid var(--line);
 }
 
-.project:hover .project-url,
-.project:focus-visible .project-url { color: var(--accent); }
-.project:hover .project-plate,
-.project:focus-visible .project-plate { border-color: var(--ink); }
+/* Cards share a row, so bodies stretch and the stack line pins to the bottom. */
+.project-body {
+  padding: 20px 20px 22px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
 
-.project:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.project-category {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
 
-@media (max-width: 900px) {
-  .project {
-    grid-template-columns: 1fr;
-    gap: 22px;
-    padding: 32px 24px;
-  }
-  .project-blurb { max-width: none; }
+.project-name {
+  margin: 8px 0 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 21px;
+  line-height: 1.2;
+  transition: color 0.18s ease;
+}
+
+.project-blurb {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.project-stack {
+  margin: 14px 0 0;
+  padding-top: 4px;
+  margin-top: auto;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--faint);
+}
+
+.project-card:hover,
+.project-card:focus-visible { border-color: var(--ink); }
+.project-card:hover .project-name,
+.project-card:focus-visible .project-name { color: var(--accent); }
+
+.project-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+@media (max-width: 760px) {
+  .project-grid { padding: 0 20px; gap: 20px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .project-url { transition: none; }
+  .project-card, .project-name { transition: none; }
 }
 
 /* Skills */
@@ -353,7 +352,7 @@ h1, h2 { font-family: var(--font-display); font-weight: 700; margin: 0; letter-s
 @media (max-width: 760px) {
   .header { padding: 0 20px; }
   .header-nav { display: none; }
-  .hero, .section-label, .project, .skills-row, .contact, .footer {
+  .hero, .section-label, .skills-row, .contact, .footer {
     padding-left: 20px;
     padding-right: 20px;
   }
