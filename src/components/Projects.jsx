@@ -1,72 +1,77 @@
-import { useState } from 'react'
+import pirataShot from '../assets/pirata.webp'
+import chessdayShot from '../assets/chessday.webp'
+import walangPasokShot from '../assets/walang-pasok.webp'
 
 const PROJECTS = [
   {
-    index: '01',
     name: 'Pirata',
-    category: 'Web App',
-    desc: 'A free all-in-one student toolkit. PDF, image and media tools that run fully in the browser.',
+    blurb:
+      'A free all-in-one student toolkit. PDF, image and media tools that run fully in the browser, so files never leave the device.',
+    stack: 'React · Vite · pdf-lib · transformers.js',
     url: 'https://akuraskurasa.github.io/piratatools/',
-    hue: 18,
+    shot: pirataShot,
+    alt: 'The Pirata home page: a search field over a grid of student tools.',
   },
   {
-    index: '02',
     name: 'ChessDay',
-    category: 'MERN App',
-    desc: 'Pulls your Lichess and Chess.com games, finds your weak spots, and builds a bot that plays like you.',
+    blurb:
+      'Pulls your Lichess and Chess.com games, scans them with Stockfish to find where you lose points, and builds a bot that plays like you.',
+    stack: 'MongoDB · Express · React · Node · Stockfish',
     url: 'https://akuraskurasa.github.io/chessday/',
-    hue: 202,
+    shot: chessdayShot,
+    alt: 'The ChessDay home page: a username search above a sample player report.',
+  },
+  {
+    name: 'Walang Pasok API',
+    blurb:
+      'Tracks class suspensions across the Philippines, each one checked against its source, as data any app or bot can query.',
+    stack: 'Python · FastAPI · PostgreSQL',
+    url: 'https://akuraskurasa.github.io/walang-pasok-api/',
+    shot: walangPasokShot,
+    alt: 'The Walang Pasok home page: an admit slip that reports whether classes are suspended in a chosen city.',
   },
 ]
 
+const displayUrl = (url) => url.replace(/^https?:\/\//, '').replace(/\/$/, '')
+
 export default function Projects() {
-  const [hoveredIndex, setHoveredIndex] = useState(null)
-  const [pos, setPos] = useState({ x: 0, y: 0 })
-
-  const hovered = PROJECTS.find((p) => p.index === hoveredIndex)
-
-  const handleMouseMove = (e) => {
-    setPos({ x: e.clientX, y: e.clientY })
-  }
-
   return (
-    <section className="projects" id="work" onMouseMove={handleMouseMove}>
+    <section className="projects" id="work">
       <div className="section-label">
         <p className="eyebrow">SELECTED WORK</p>
         <h2>Projects</h2>
       </div>
 
       <div className="project-list">
-        {PROJECTS.map((p) => (
+        {PROJECTS.map((p, i) => (
           <a
-            key={p.index}
+            key={p.name}
             href={p.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="project-row"
+            className="project"
             data-cursor="hover"
-            onMouseEnter={() => setHoveredIndex(p.index)}
-            onMouseLeave={() => setHoveredIndex(null)}
           >
-            <span className="project-index">{p.index}</span>
-            <span className="project-name">{p.name}</span>
-            <span className="project-category">{p.category}</span>
-            <span className="project-arrow">↗</span>
+            <div className="project-text">
+              <h3 className="project-name">{p.name}</h3>
+              <p className="project-blurb">{p.blurb}</p>
+              <p className="project-stack">{p.stack}</p>
+            </div>
+
+            <figure className="project-plate">
+              <figcaption className="project-url">{displayUrl(p.url)}</figcaption>
+              <img
+                src={p.shot}
+                alt={p.alt}
+                width="1440"
+                height="810"
+                loading={i === 0 ? 'eager' : 'lazy'}
+                decoding="async"
+              />
+            </figure>
           </a>
         ))}
       </div>
-
-      {hovered && (
-        <div
-          className="project-preview"
-          style={{
-            transform: `translate(${pos.x}px, ${pos.y}px) translate(-50%, -50%)`,
-            background: `hsl(${hovered.hue}, 60%, 52%)`,
-          }}
-        >
-          <span>{hovered.desc}</span>
-        </div>
-      )}
     </section>
   )
 }
