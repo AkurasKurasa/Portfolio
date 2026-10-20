@@ -1,8 +1,19 @@
+import huntrShot from '../assets/huntr.webp'
 import pirataShot from '../assets/pirata.webp'
 import chessdayShot from '../assets/chessday.webp'
 import walangPasokShot from '../assets/walang-pasok.webp'
 
 const PROJECTS = [
+  {
+    name: 'Huntr',
+    category: 'Web App',
+    blurb:
+      'Reads each job post you paste, works out whether it wants an email or a form, drafts what it asks for, and sends it from your Gmail.',
+    stack: 'React · Express · Node · Supabase',
+    url: 'https://akuraskurasa.github.io/huntr/',
+    shot: huntrShot,
+    alt: 'The Huntr apply page: a job-link field above the batch apply steps.',
+  },
   {
     name: 'Pirata',
     category: 'Web App',
