@@ -11,8 +11,11 @@ export default function Header() {
         <a href="#skills" data-cursor="hover">
           <span className="nav-index">02</span> Skills
         </a>
+        <a href="#certifications" data-cursor="hover">
+          <span className="nav-index">03</span> Certifications
+        </a>
         <a href="#contact" data-cursor="hover">
-          <span className="nav-index">03</span> Contact
+          <span className="nav-index">04</span> Contact
         </a>
       </nav>
       <a
